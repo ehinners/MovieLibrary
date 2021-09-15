@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Y60qnaqbZ0eQ1jx4OsD//rH3ehzImAxnIK+P/n/QS0XcpBYomeFCS9O7XJMdPkUFH+2yZIIpIMG6uP3Vcy+dAQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\EHIN\\Desktop\\Project References\\School\\Classes\\Dotnet\\Programs\\AssignmentMovieLibraryEhinners\\AssignmentMovieLibraryEhinners.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\EHIN\\.nuget\\packages\\nlog\\4.7.11\\nlog.4.7.11.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -6,7 +6,7 @@ namespace AssignmentMovieLibraryEhinners
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Git Init");
+            Console.WriteLine("Second Commit");
         }
     }
 }
