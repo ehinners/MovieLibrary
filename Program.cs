@@ -9,6 +9,17 @@ namespace AssignmentMovieLibraryEhinners
     {
         static void Main(string[] args)
         {
+            /*
+            QUESTIONS
+            1. Along what axies should a movie qualify as "a duplicate"?
+            If a movie name is a same, but entered with new genres, should that be applied? How exactly should a "duplicate" name line up?
+            Including year number? Including quotations? Including differences in format? 
+            (Some Names have "The" seperated at the end like "Peanuts, The")
+            Do names have to be formatted the same way with "The" moved around?
+            2. Does year number not count as part of the title? Should it be ignored? Should it be Displayed seperately?
+            3. Should an added movie go straight to the file? Should a movie added be immediately viewable in "view all"?
+            4. What discrepensies in the movie file should be accounted for? Commas in the name? 
+            */
 
             Console.Clear();
             Console.WriteLine("");
@@ -66,6 +77,9 @@ namespace AssignmentMovieLibraryEhinners
             int titleHRlength = 0;
             string genreHR = "-";
             string seperatorHR = "/";
+            string[] genreSplit;
+            int genreCounter;
+
 
             //////////////////////////////
             //  Vars For Adding Movies  //
@@ -74,7 +88,9 @@ namespace AssignmentMovieLibraryEhinners
             string titleToAdd;
             string genreToAdd;
             string genreSentinel = "!DONE";
+            string movieTitleNotUniqueWarning = "MOVIE TITLE NOT UNIQUE";
             List<string> genreCollection = new List<string>();
+            List<string> movieAdditionsList = new List<string>();
             string movieToAdd;
             bool movieIsUnique = true;
             bool notFirstGenre = false;
@@ -283,7 +299,19 @@ namespace AssignmentMovieLibraryEhinners
                         Console.WriteLine(titleHR);
 
                         // Output Movie Genre(s)                   
-                        Console.Write($"{csvsplit[2].ToUpper(),-96}");
+                        //Console.Write($"{csvsplit[2].ToUpper(),-96}");
+                        genreSplit = csvsplit[2].Split("|");
+                        genreCounter = 1;
+                        foreach(string genre in genreSplit)
+                        {
+                            Console.Write($"{genre.ToUpper(),-3}");
+                            
+                            if(genreCounter!=genreSplit.Length)
+                            {
+                                Console.Write(", ");
+                            }
+                            genreCounter++;
+                        }
 
                         // New Line
                         Console.WriteLine();
@@ -320,6 +348,19 @@ namespace AssignmentMovieLibraryEhinners
                         }
                     }
 
+                    movieIsUnique = true;
+
+                    // Check to see if movie TITLE is unique
+                    foreach (string movie in csvs)
+                    {
+                        csvsplit = movie.Split(",");
+                        if(titleToAdd.ToUpper() == csvsplit[1].ToUpper())
+                        {
+                            movieIsUnique = false;
+                        }
+                    }
+
+                    // if movie is unique, formats input to csv
                     if(movieIsUnique)
                     {
                         numMovies++;
@@ -335,13 +376,23 @@ namespace AssignmentMovieLibraryEhinners
                             notFirstGenre = true;
                         }
 
-                        Console.WriteLine(movieToAdd);  
+                        movieAdditionsList.Add(movieToAdd);
+                    }
+                    else
+                    {
+                        logger.Error(movieTitleNotUniqueWarning);
                     }
                     
                 }
                 else if(userChoice==optionsUpperBound)
                 {
-                    Console.WriteLine(exitMessage);   
+                    Console.WriteLine(exitMessage);  
+                    StreamWriter sw = File.AppendText(file);  
+                    foreach(string movie in movieAdditionsList)
+                    {
+                        sw.WriteLine(movie);
+                    }
+                    sw.Close(); // Saves the file   
                 }
                 else
                 {
