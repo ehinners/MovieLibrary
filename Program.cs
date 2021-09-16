@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using NLog.Web;
 
 namespace AssignmentMovieLibraryEhinners
 {
@@ -6,7 +8,17 @@ namespace AssignmentMovieLibraryEhinners
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Second Commit");
+
+            Console.Clear();
+
+
+            string path = Directory.GetCurrentDirectory() + "\\nlog.config";
+
+            // create instance of Logger
+            var logger = NLog.Web.NLogBuilder.ConfigureNLog(path).GetCurrentClassLogger();
+
+            
+            Console.WriteLine("NLOG Loaded");
         }
     }
 }
