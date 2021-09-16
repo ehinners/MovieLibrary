@@ -17,8 +17,8 @@ namespace AssignmentMovieLibraryEhinners
             // create instance of Logger
             var logger = NLog.Web.NLogBuilder.ConfigureNLog(path).GetCurrentClassLogger();
 
-            
-            Console.WriteLine("NLOG Loaded");
+            logger.Info("NLOG Loaded");
+            Console.WriteLine("");
         }
     }
 }
