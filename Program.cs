@@ -13,6 +13,10 @@ namespace AssignmentMovieLibraryEhinners
             Console.Clear();
             Console.WriteLine("");
 
+            //////////////////////////////
+            //      NLOG Instantiation  //
+            //////////////////////////////
+
             string path = Directory.GetCurrentDirectory() + "\\nlog.config";
 
             // create instance of Logger
@@ -20,11 +24,38 @@ namespace AssignmentMovieLibraryEhinners
 
             logger.Info("NLOG Loaded");
 
+            //////////////////////////////
+            //   Vars For File Loading  //
+            //////////////////////////////
+
             string file = "movies.csv";
 
+            string[] csvsplit;
             List<string> csvs = new List<string>();
             string temp;
 
+            int numMovies = 0; // Movie Counter
+
+            //////////////////////////////
+            //       Vars For Menu      //
+            //////////////////////////////
+
+            bool validInput = false;
+            int userChoice = 0;
+            string welcome = "Welcome To The Movie Database";
+            string almostHRtag = "==================================";
+            string optionsPrompt = "Please Enter One Of The Following Options:";
+            List<string> options = new List<string>();
+            options.Add("View All Movies");
+            options.Add("Add A Movie");
+            options.Add("Exit"); // Exit Must Always Be Last Option
+            int optionsLowerBound = 0;
+            int optionsUpperBound = options.Count;
+            int i = 0;
+
+            //////////////////////////////
+            //    Loading Movie File    //
+            //////////////////////////////
             if(File.Exists(file))
             {
                 StreamReader sr = new StreamReader(file);
@@ -36,14 +67,80 @@ namespace AssignmentMovieLibraryEhinners
                     temp = sr.ReadLine();
 
                     csvs.Add(temp);
-                }
+                    csvsplit = temp.Split(",");
 
+                    if(numMovies != 0)
+                    {
+                        try
+                        {
+                            numMovies = int.Parse(csvsplit[0]);
+                        }
+                        catch
+                        {
+                            logger.Error("ID Not Found: {0}",numMovies);
+                        }
+                    }
+                    else
+                    {
+                        numMovies++;
+                    }
+
+                    
+                    
+                }
+                Console.WriteLine("Last Entered Movie ID: {0}",numMovies);
                 sr.Close();
             }
             else
             {
                 logger.Warn("File does not exists. {file}", file);
             }
+
+            //////////////////////////////
+            //         User Menu        //
+            //////////////////////////////
+
+            Console.WriteLine(almostHRtag);
+            Console.WriteLine(welcome);
+            Console.WriteLine(almostHRtag);   
+
+            while(userChoice != optionsUpperBound)       
+            {
+                while(!validInput)
+                {
+                    Console.WriteLine(optionsPrompt);
+                    i = 1;
+                    foreach (string prompt in options)
+                    {
+                        Console.Write("{0}: ", i);
+                        Console.WriteLine(prompt);
+                        i++;
+                    }
+                    try
+                    {
+                        userChoice = int.Parse(Console.ReadLine());
+                        if(userChoice==0)
+                        {
+                            logger.Error("Please Enter A Value Greater Than 0");
+                        }
+                        else
+                        {
+                            validInput = true;
+                        }
+                        
+                    }
+                    catch
+                    {
+                        logger.Error("Not Valid Input");
+                    }
+                }
+                Console.WriteLine("Input Accepted");
+                validInput = false; // Must reset flag value for next iteration of loop
+            }  
+
+            
+
+            
             
         }
     }
