@@ -35,6 +35,9 @@ namespace AssignmentMovieLibraryEhinners
             string temp;
 
             int numMovies = 0; // Movie Counter
+            int idMaxLength = 0;
+            int titleMaxLength = 0;
+            int genresMaxLength = 0;
 
             //////////////////////////////
             //       Vars For Menu      //
@@ -54,6 +57,15 @@ namespace AssignmentMovieLibraryEhinners
             int optionsLowerBound = 0;
             int optionsUpperBound = options.Count;
             int i = 0;
+
+            //////////////////////////////
+            //  Vars For Viewing Movies //
+            //////////////////////////////
+
+            string titleHR = "-";
+            int titleHRlength = 0;
+            string genreHR = "-";
+            string seperatorHR = "/";
 
             //////////////////////////////
             //    Loading Movie File    //
@@ -86,7 +98,18 @@ namespace AssignmentMovieLibraryEhinners
                     {
                         numMovies++;
                     }
-
+                    if(csvsplit[0].Length>idMaxLength)
+                    {
+                        idMaxLength = csvsplit[0].Length;
+                    }
+                    if(csvsplit[1].Length>titleMaxLength)
+                    {
+                        titleMaxLength = csvsplit[1].Length;
+                    }
+                    if(csvsplit[2].Length>genresMaxLength)
+                    {                        
+                        genresMaxLength = csvsplit[2].Length;
+                    }
                     
                     
                 }
@@ -151,6 +174,110 @@ namespace AssignmentMovieLibraryEhinners
                 {
                     // See All Movies
                     logger.Info(options[userChoice-1]);
+
+                    Console.Clear();
+                    // New Line
+                    Console.WriteLine();
+
+                    // calculate titleHR
+                    titleHRlength = idMaxLength + titleMaxLength;
+                    for(int j = 0; j<titleHRlength; j++)
+                    {
+                        titleHR += "-";
+                    }
+
+                    // calculate seperatorHR
+                    for(int j = 0; j<titleHRlength; j++)
+                    {
+                        seperatorHR +="/";
+                    }
+
+                    // calculate genreHR
+                    for(int j = 0; j<genresMaxLength; j++)
+                    {
+                        genreHR += "-";
+                    }
+
+                    // converting max lengths to negative values for left justification
+                    idMaxLength = 0-idMaxLength;
+                    idMaxLength--;
+                    genresMaxLength = 0-genresMaxLength;
+
+                    //Console.WriteLine("Max Length of ID = {0}", idMaxLength);
+                    //Console.WriteLine("Max Length of Titles = {0}", titleMaxLength);
+                    //Console.WriteLine("Max Length of Genres = {0}", genresMaxLength);
+
+                    /* Max Length of ID = -7
+                    Max Length of Titles = -158
+                    Max Length of Genres = -96*/
+
+                    /*
+
+                    // Output Horizontal Rule
+                    
+                    Console.WriteLine(titleHR);
+
+                    /* movieId  title  genres
+                    csvsplit = csvs[0].Split(",");
+                    // Output Movie ID
+                    //csvsplit[0]
+                    //Console.Write($"{csvsplit[0],idMaxLength}");
+                    Console.Write($"{csvsplit[0].ToUpper(),-8}");
+                    
+                    
+
+                    
+                    // Output Movie Title
+                    //csvsplit[1]
+                    Console.Write($"{csvsplit[1].ToUpper(),158}");
+
+                    // New Line
+                    Console.WriteLine();
+
+                    // Output Horizontal Rule
+                    
+                    Console.WriteLine(titleHR);
+
+
+                    // Output Movie Genre(s)
+                    //csvsplit[2]
+                    
+                    Console.Write($"{csvsplit[2].ToUpper(),96}");
+                    // New Line
+                    Console.WriteLine();
+                    // Output Horizontal Rule
+                    
+                    Console.WriteLine(titleHR); */
+
+                    foreach (string movie in csvs)
+                    {
+                        csvsplit = movie.Split(",");
+
+                        // Output Horizontal Rule                    
+                        Console.WriteLine(titleHR);
+                        
+                        // Output Movie ID
+                        //Console.Write($"{csvsplit[0],idMaxLength}");
+                        Console.Write($"{csvsplit[0].ToUpper(),-8}");                      
+                        
+                        // Output Movie Title
+                        Console.Write($"{csvsplit[1].ToUpper(),158}");
+
+                        // New Line
+                        Console.WriteLine();
+                        // Output Horizontal Rule                        
+                        Console.WriteLine(titleHR);
+
+                        // Output Movie Genre(s)                   
+                        Console.Write($"{csvsplit[2].ToUpper(),-96}");
+
+                        // New Line
+                        Console.WriteLine();
+                        // Output Horizontal Rule                        
+                        Console.WriteLine(titleHR);
+                        // Output Horizontal Rule                        
+                        Console.WriteLine(seperatorHR);
+                    }
                 }
                 else if(userChoice==2)
                 {
