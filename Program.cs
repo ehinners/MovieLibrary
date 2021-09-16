@@ -75,6 +75,9 @@ namespace AssignmentMovieLibraryEhinners
             string genreToAdd;
             string genreSentinel = "!DONE";
             List<string> genreCollection = new List<string>();
+            string movieToAdd;
+            bool movieIsUnique = true;
+            bool notFirstGenre = false;
 
             //////////////////////////////
             //    Loading Movie File    //
@@ -315,6 +318,24 @@ namespace AssignmentMovieLibraryEhinners
                         {
                             genreCollection.Add(genreToAdd);
                         }
+                    }
+
+                    if(movieIsUnique)
+                    {
+                        numMovies++;
+                        movieToAdd = numMovies + "," + titleToAdd + ",";
+                        notFirstGenre = false;
+                        foreach(string genre in genreCollection)
+                        {
+                            if(notFirstGenre)
+                            {
+                                movieToAdd +="|";
+                            }
+                            movieToAdd += genre;
+                            notFirstGenre = true;
+                        }
+
+                        Console.WriteLine(movieToAdd);  
                     }
                     
                 }
