@@ -386,6 +386,9 @@ namespace AssignmentMovieLibraryEhinners
                 }
                 else if(userChoice==optionsUpperBound)
                 {
+                    ////////////////////////////
+                    //          EXIT          //
+                    ////////////////////////////
                     Console.WriteLine(exitMessage);  
                     StreamWriter sw = File.AppendText(file);  
                     foreach(string movie in movieAdditionsList)
