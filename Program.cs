@@ -45,6 +45,8 @@ namespace AssignmentMovieLibraryEhinners
             string welcome = "Welcome To The Movie Database";
             string almostHRtag = "==================================";
             string optionsPrompt = "Please Enter One Of The Following Options:";
+            string optionNotFoundMessage = "Option Not Found!";
+            string exitMessage = "Thanks For Visiting, Good-Bye!";
             List<string> options = new List<string>();
             options.Add("View All Movies");
             options.Add("Add A Movie");
@@ -123,6 +125,10 @@ namespace AssignmentMovieLibraryEhinners
                         {
                             logger.Error("Please Enter A Value Greater Than 0");
                         }
+                        else if(userChoice>optionsUpperBound)
+                        {
+                            logger.Error(optionNotFoundMessage);
+                        }
                         else
                         {
                             validInput = true;
@@ -136,6 +142,30 @@ namespace AssignmentMovieLibraryEhinners
                 }
                 Console.WriteLine("Input Accepted");
                 validInput = false; // Must reset flag value for next iteration of loop
+
+                //////////////////////////////
+                //       User Options       //
+                //////////////////////////////
+
+                if(userChoice==1)
+                {
+                    // See All Movies
+                    logger.Info(options[userChoice-1]);
+                }
+                else if(userChoice==2)
+                {
+                    // Add Movie
+                    logger.Info(options[userChoice-1]);
+                }
+                else if(userChoice==optionsUpperBound)
+                {
+                    Console.WriteLine(exitMessage);   
+                }
+                else
+                {
+                    logger.Error(optionNotFoundMessage);
+                }
+                
             }  
 
             
