@@ -68,6 +68,15 @@ namespace AssignmentMovieLibraryEhinners
             string seperatorHR = "/";
 
             //////////////////////////////
+            //  Vars For Adding Movies  //
+            //////////////////////////////
+
+            string titleToAdd;
+            string genreToAdd;
+            string genreSentinel = "!DONE";
+            List<string> genreCollection = new List<string>();
+
+            //////////////////////////////
             //    Loading Movie File    //
             //////////////////////////////
             if(File.Exists(file))
@@ -172,7 +181,9 @@ namespace AssignmentMovieLibraryEhinners
 
                 if(userChoice==1)
                 {
-                    // See All Movies
+                    //////////////////////////////
+                    //      SEE ALL MOVIES      //
+                    //////////////////////////////
                     logger.Info(options[userChoice-1]);
 
                     Console.Clear();
@@ -281,8 +292,31 @@ namespace AssignmentMovieLibraryEhinners
                 }
                 else if(userChoice==2)
                 {
-                    // Add Movie
+                    //////////////////////////////
+                    //        ADD MOVIE         //
+                    //////////////////////////////
                     logger.Info(options[userChoice-1]);
+
+                    Console.Clear();
+                    // New Line
+                    Console.WriteLine();
+
+                    Console.WriteLine("Please Enter The Title:");
+                    titleToAdd = Console.ReadLine();
+
+                    Console.WriteLine("Please Enter A Genre: ");
+                    Console.WriteLine("(Type '{0}' To Stop)",genreSentinel);
+                    genreCollection.Clear();
+                    genreToAdd = "ready";
+                    while(genreToAdd!=genreSentinel)
+                    {
+                        genreToAdd = Console.ReadLine();
+                        if(genreToAdd!=genreSentinel)
+                        {
+                            genreCollection.Add(genreToAdd);
+                        }
+                    }
+                    
                 }
                 else if(userChoice==optionsUpperBound)
                 {
