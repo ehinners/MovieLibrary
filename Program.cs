@@ -72,7 +72,8 @@ namespace AssignmentMovieLibraryEhinners
             string seperatorHR = "/";
             string[] genreSplit;
             int genreCounter;
-
+            int partNumber;
+            string tempTitle;
 
             //////////////////////////////
             //  Vars For Adding Movies  //
@@ -290,16 +291,44 @@ namespace AssignmentMovieLibraryEhinners
                     foreach (string movie in csvs)
                     {
                         csvsplit = movie.Split(",");
+                        partNumber = 0;
+                        // foreach(String part in csvsplit)                   
+                        // {
+                           
+                        //         Console.WriteLine(part);
+                        //         partNumber++;
+                            
+                        // }
+                        // Console.WriteLine("number of items in csvsplit is: {0}",partNumber);
 
                         // Output Horizontal Rule                    
                         Console.WriteLine(titleHR);
                         
                         // Output Movie ID
                         //Console.Write($"{csvsplit[0],idMaxLength}");
-                        Console.Write($"{csvsplit[0].ToUpper(),-8}");                      
+                        Console.Write($"{csvsplit[0].ToUpper(),-8}");   
+
+                        tempTitle = "";
+                        partNumber = 0;
+                        //Console.WriteLine("Part Number is:");
+                        // Scans split for inconsistencies
+                        foreach(String part in csvsplit)                   
+                        {
+                            if(part!=csvsplit[0] && !part.Contains('|') && partNumber+2 != csvsplit.Length)
+                            {
+                                if(part!=csvsplit[1])
+                                {
+                                    tempTitle += ",";
+                                }                                
+                                tempTitle += part;
+                                partNumber++;
+                                //Console.WriteLine(partNumber);
+                            }
+                        }
                         
                         // Output Movie Title
-                        Console.Write($"{csvsplit[1].ToUpper(),158}");
+                        //Console.Write($"{csvsplit[1].ToUpper(),158}");
+                        Console.Write($"{tempTitle.ToUpper(),158}");
 
                         // New Line
                         Console.WriteLine();
@@ -308,7 +337,8 @@ namespace AssignmentMovieLibraryEhinners
 
                         // Output Movie Genre(s)                   
                         //Console.Write($"{csvsplit[2].ToUpper(),-96}");
-                        genreSplit = csvsplit[2].Split("|");
+                        //genreSplit = csvsplit[2].Split("|");
+                        genreSplit = csvsplit[partNumber+1].Split("|");
                         genreCounter = 1;
                         foreach(string genre in genreSplit)
                         {
