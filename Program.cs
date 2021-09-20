@@ -11,7 +11,6 @@ namespace AssignmentMovieLibraryEhinners
         {
             /*
             TODO
-             - Make Sure "!DONE" is case insensitive
              - Make Sure commas, quotations, and apostrophes don't mess with movie titles
             */
 
@@ -348,10 +347,10 @@ namespace AssignmentMovieLibraryEhinners
                     Console.WriteLine("(Type '{0}' To Stop)",genreSentinel);
                     genreCollection.Clear();
                     genreToAdd = "ready";
-                    while(genreToAdd!=genreSentinel)
+                    while(genreToAdd.ToUpper()!=genreSentinel)
                     {
                         genreToAdd = Console.ReadLine();
-                        if(genreToAdd!=genreSentinel)
+                        if(genreToAdd.ToUpper()!=genreSentinel)
                         {
                             genreCollection.Add(genreToAdd);
                         }
