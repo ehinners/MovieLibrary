@@ -10,15 +10,9 @@ namespace AssignmentMovieLibraryEhinners
         static void Main(string[] args)
         {
             /*
-            QUESTIONS
-            1. Along what axies should a movie qualify as "a duplicate"?
-            If a movie name is a same, but entered with new genres, should that be applied? How exactly should a "duplicate" name line up?
-            Including year number? Including quotations? Including differences in format? 
-            (Some Names have "The" seperated at the end like "Peanuts, The")
-            Do names have to be formatted the same way with "The" moved around?
-            2. Does year number not count as part of the title? Should it be ignored? Should it be Displayed seperately?
-            3. Should an added movie go straight to the file? Should a movie added be immediately viewable in "view all"?
-            4. What discrepensies in the movie file should be accounted for? Commas in the name? 
+            TODO
+             - Make Sure "!DONE" is case insensitive
+             - Make Sure commas, quotations, and apostrophes don't mess with movie titles
             */
 
             Console.Clear();
@@ -95,6 +89,8 @@ namespace AssignmentMovieLibraryEhinners
             bool movieIsUnique = true;
             bool notFirstGenre = false;
 
+            StreamWriter sw;
+
             //////////////////////////////
             //    Loading Movie File    //
             //////////////////////////////
@@ -126,6 +122,18 @@ namespace AssignmentMovieLibraryEhinners
                     {
                         numMovies++;
                     }
+
+
+                    /////////////////////////////////////
+                    // Creating Dynamic Format Lengths //
+                    /////////////////////////////////////
+
+                    // The blank space SHOULD be wide enough to hold the longest movie title name in the whole database
+                    // The horizontal rule visually separating each movie should be as long as the maximum amount of dedicated space
+                    // The amount of characters for which is dynamically generated here.
+                    // NOTE: the correct amount of string interpolation characters cannot be dynamically generated, must be a constant value.
+                    // (Even though I'd really like it not to)
+
                     if(csvsplit[0].Length>idMaxLength)
                     {
                         idMaxLength = csvsplit[0].Length;
@@ -137,12 +145,39 @@ namespace AssignmentMovieLibraryEhinners
                     if(csvsplit[2].Length>genresMaxLength)
                     {                        
                         genresMaxLength = csvsplit[2].Length;
-                    }
+                    }                 
                     
                     
                 }
                 Console.WriteLine("Last Entered Movie ID: {0}",numMovies);
                 sr.Close();
+
+
+                //Can't Calculate this in loop or it will get linearly longer
+                    titleHRlength = idMaxLength + titleMaxLength; 
+
+                    // calculate titleHR
+                    for(int j = 0; j<titleHRlength; j++)
+                    {
+                        titleHR += "-";
+                    }
+
+                    // calculate seperatorHR
+                    for(int j = 0; j<titleHRlength; j++)
+                    {
+                        seperatorHR +="/";
+                    }
+
+                    // calculate genreHR
+                    for(int j = 0; j<genresMaxLength; j++)
+                    {
+                        genreHR += "-";
+                    }
+
+                    // converting max lengths to negative values for left justification
+                    idMaxLength = 0-idMaxLength;
+                    idMaxLength--;
+                    genresMaxLength = 0-genresMaxLength;
             }
             else
             {
@@ -209,29 +244,7 @@ namespace AssignmentMovieLibraryEhinners
                     // New Line
                     Console.WriteLine();
 
-                    // calculate titleHR
-                    titleHRlength = idMaxLength + titleMaxLength;
-                    for(int j = 0; j<titleHRlength; j++)
-                    {
-                        titleHR += "-";
-                    }
-
-                    // calculate seperatorHR
-                    for(int j = 0; j<titleHRlength; j++)
-                    {
-                        seperatorHR +="/";
-                    }
-
-                    // calculate genreHR
-                    for(int j = 0; j<genresMaxLength; j++)
-                    {
-                        genreHR += "-";
-                    }
-
-                    // converting max lengths to negative values for left justification
-                    idMaxLength = 0-idMaxLength;
-                    idMaxLength--;
-                    genresMaxLength = 0-genresMaxLength;
+                    
 
                     //Console.WriteLine("Max Length of ID = {0}", idMaxLength);
                     //Console.WriteLine("Max Length of Titles = {0}", titleMaxLength);
@@ -252,10 +265,7 @@ namespace AssignmentMovieLibraryEhinners
                     // Output Movie ID
                     //csvsplit[0]
                     //Console.Write($"{csvsplit[0],idMaxLength}");
-                    Console.Write($"{csvsplit[0].ToUpper(),-8}");
-                    
-                    
-
+                    Console.Write($"{csvsplit[0].ToUpper(),-8}");          
                     
                     // Output Movie Title
                     //csvsplit[1]
@@ -267,7 +277,6 @@ namespace AssignmentMovieLibraryEhinners
                     // Output Horizontal Rule
                     
                     Console.WriteLine(titleHR);
-
 
                     // Output Movie Genre(s)
                     //csvsplit[2]
@@ -376,7 +385,14 @@ namespace AssignmentMovieLibraryEhinners
                             notFirstGenre = true;
                         }
 
-                        movieAdditionsList.Add(movieToAdd);
+                        //movieAdditionsList.Add(movieToAdd);
+                        sw = File.AppendText(file);  
+                    
+                        sw.WriteLine(movieToAdd);
+                    
+                        sw.Close(); // Saves the file   
+
+                        csvs.Add(movieToAdd);
                     }
                     else
                     {
@@ -390,12 +406,13 @@ namespace AssignmentMovieLibraryEhinners
                     //          EXIT          //
                     ////////////////////////////
                     Console.WriteLine(exitMessage);  
-                    StreamWriter sw = File.AppendText(file);  
-                    foreach(string movie in movieAdditionsList)
-                    {
-                        sw.WriteLine(movie);
-                    }
-                    sw.Close(); // Saves the file   
+                    //StreamWriter sw = File.AppendText(file);  
+                    // sw = File.AppendText(file);  
+                    // foreach(string movie in movieAdditionsList)
+                    // {
+                    //     sw.WriteLine(movie);
+                    // }
+                    // sw.Close(); // Saves the file   
                 }
                 else
                 {
