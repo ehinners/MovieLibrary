@@ -9,10 +9,6 @@ namespace AssignmentMovieLibraryEhinners
     {
         static void Main(string[] args)
         {
-            /*
-            TODO
-             - Make Sure commas, quotations, and apostrophes don't mess with movie titles
-            */
 
             Console.Clear();
             Console.WriteLine("");
@@ -72,6 +68,7 @@ namespace AssignmentMovieLibraryEhinners
             string seperatorHR = "/";
             string[] genreSplit;
             int genreCounter;
+            // Part Number and TempTitle help form a title if it has a comma in it
             int partNumber;
             string tempTitle;
 
@@ -254,53 +251,11 @@ namespace AssignmentMovieLibraryEhinners
                     Max Length of Titles = -158
                     Max Length of Genres = -96*/
 
-                    /*
-
-                    // Output Horizontal Rule
-                    
-                    Console.WriteLine(titleHR);
-
-                    /* movieId  title  genres
-                    csvsplit = csvs[0].Split(",");
-                    // Output Movie ID
-                    //csvsplit[0]
-                    //Console.Write($"{csvsplit[0],idMaxLength}");
-                    Console.Write($"{csvsplit[0].ToUpper(),-8}");          
-                    
-                    // Output Movie Title
-                    //csvsplit[1]
-                    Console.Write($"{csvsplit[1].ToUpper(),158}");
-
-                    // New Line
-                    Console.WriteLine();
-
-                    // Output Horizontal Rule
-                    
-                    Console.WriteLine(titleHR);
-
-                    // Output Movie Genre(s)
-                    //csvsplit[2]
-                    
-                    Console.Write($"{csvsplit[2].ToUpper(),96}");
-                    // New Line
-                    Console.WriteLine();
-                    // Output Horizontal Rule
-                    
-                    Console.WriteLine(titleHR); */
 
                     foreach (string movie in csvs)
                     {
                         csvsplit = movie.Split(",");
-                        partNumber = 0;
-                        // foreach(String part in csvsplit)                   
-                        // {
-                           
-                        //         Console.WriteLine(part);
-                        //         partNumber++;
-                            
-                        // }
-                        // Console.WriteLine("number of items in csvsplit is: {0}",partNumber);
-
+                                       
                         // Output Horizontal Rule                    
                         Console.WriteLine(titleHR);
                         
@@ -310,7 +265,7 @@ namespace AssignmentMovieLibraryEhinners
 
                         tempTitle = "";
                         partNumber = 0;
-                        //Console.WriteLine("Part Number is:");
+                        
                         // Scans split for inconsistencies
                         foreach(String part in csvsplit)                   
                         {
@@ -322,7 +277,7 @@ namespace AssignmentMovieLibraryEhinners
                                 }                                
                                 tempTitle += part;
                                 partNumber++;
-                                //Console.WriteLine(partNumber);
+                                
                             }
                         }
                         
@@ -434,14 +389,7 @@ namespace AssignmentMovieLibraryEhinners
                     ////////////////////////////
                     //          EXIT          //
                     ////////////////////////////
-                    Console.WriteLine(exitMessage);  
-                    //StreamWriter sw = File.AppendText(file);  
-                    // sw = File.AppendText(file);  
-                    // foreach(string movie in movieAdditionsList)
-                    // {
-                    //     sw.WriteLine(movie);
-                    // }
-                    // sw.Close(); // Saves the file   
+                    Console.WriteLine(exitMessage); 
                 }
                 else
                 {
